@@ -39,6 +39,12 @@ X = data(:, 1:2);
 y = data(:, 3);
 m = length(y);
 
+%%% Testimate:
+%%% By looking at the values, note that house sizes are about 1000 times
+%%% the number of bedrooms. Whenfeatures differ by orders of magnitude,
+%%% forst performing feature scaling can make gradient descent converge
+%%% much more quickly
+
 % Print out some data points
 fprintf('First 10 examples from the dataset: \n');
 fprintf(' x = [%.0f %.0f], y = %.0f \n', [X(1:10,:) y(1:10,:)]');
