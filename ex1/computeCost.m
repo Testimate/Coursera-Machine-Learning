@@ -16,7 +16,7 @@ J = 0;
 
 
 J = 1/(2*m) * sum((X * theta - y).^2)
-%%% In the Stanford CS229, it's 1/2 instead of 1/(2m), pending to confirm the reason.
+% Testimate: In the Stanford CS229, it's 1/2 instead of 1/(2m), pending to confirm the reason.
 
 % =========================================================================
 

@@ -18,20 +18,26 @@ for iter = 1:num_iters
     %
 
     
-    %$$$$$$$$$%%%  Previous Wrong Answer: 
+    %$$$$$$$$$%%%  This is the Wrong Answer: 
     
-    %%%$$$ theta(1) = theta(1) - alpha /m * sum(X * theta - y); 
-    %%%$$$ theta(2) = theta(2) - alpha /m * sum((X * theta - y) .* X(:,2));
+    %%% theta(1) = theta(1) - alpha /m * sum(X * theta - y); 
+    %%% theta(2) = theta(2) - alpha /m * sum((X * theta - y) .* X(:,2));
 
-    %%% Update theta simultaneously, which means cannot overwrite theta
-    %%% when update theta0, otherwise theta1 will use a slightly different
-    %%% theta to update itself
+    %%% The reason this is wrong is that it fails to update 2-vector theta
+    %%% simultaneously: not necessarily meaning that theta0 and theta1 have to be updated at the same time (see the next chunk of correct code), but in that the update for both theta0 and theta1 depend on theta:
+    %%% By the code above, after updating theta0, theta will be adjusted
+    %%% and infuence the updating in theta1
+   
     
-    %% X: m*2, theta: 2*1
-    theta0 = theta(1) - alpha /m * sum(X * theta - y); 
-    theta1 = theta(2) - alpha /m * sum((X * theta - y) .* X(:,2));
-    theta = [theta0; theta1];
+    %% This is the correct way. Note that this way is 'simultaneously'
+    
+    %% sums of m products! additional pair of () to prioritize .* over sum
+     theta0 = theta(1) - alpha /m * sum ((X * theta - y).* X(:,1)); 
+     theta1 = theta(2) - alpha /m * sum ((X * theta - y) .* X(:,2));
+     theta = [theta0; theta1];
 
+    %% Of course, the optimal way shall be
+    %theta = theta - alpha /m * sum (X * theta - y)*[1 1].* X;
 
     % ============================================================
 
