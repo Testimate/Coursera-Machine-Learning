@@ -20,12 +20,19 @@ grad = zeros(size(theta));
 % Note: grad should have the same dimensions as theta
 %
 
-hTheta = sigmoid(theta' * X');
-J = -1/m * (log(hTheta) * y + log(1-hTheta) * (1-y));
-grad(1) = 1/m * (hTheta - y') * X(:,1);
-grad(2) = 1/m * (hTheta - y') * X(:,2);
-grad(3) = 1/m * (hTheta - y') * X(:,3);
+%hTheta = sigmoid(theta' * X'); %%% hTheta: 1*m. theta: 3*1 (add intercept)
+%J = -1/m * (log(hTheta) * y + log(1-hTheta) * (1-y));
+%grad(1) = 1/m * (hTheta - y') * X(:,1); % 1*m * m*1
+%grad(2) = 1/m * (hTheta - y') * X(:,2);
+%grad(3) = 1/m * (hTheta - y') * X(:,3);
 
+%%% same as:
+
+hTheta = sigmoid(X * theta); %%% hTheta: m*1. theta: 3*1 (add intercept)
+J = -1/m * (y' * log(hTheta) + (1-y)' * log(1-hTheta) );
+grad(1) = 1/m * X(:,1)' * (hTheta - y); % 1*m * m*1
+grad(2) = 1/m * X(:,2)' * (hTheta - y);
+grad(3) = 1/m * X(:,3)' * (hTheta - y);
 
 
 % =============================================================
