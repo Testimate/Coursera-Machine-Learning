@@ -55,10 +55,10 @@ pause;
 % Scale features and set them to zero mean
 fprintf('Normalizing Features ...\n');
 
-[X, mu, sigma] = featureNormalize(X);
+[Xnorm, mu, sigma] = featureNormalize(X);
 
 % Add intercept term to X
-X = [ones(m, 1) X];
+Xnorm = [ones(m, 1) Xnorm];
 
 
 %% ================ Part 2: Gradient Descent ================
@@ -90,19 +90,21 @@ fprintf('Running gradient descent ...\n');
 % Choose some alpha value
 alpha0 = 0.003;
 alpha1 = 0.01;
-alpha2 = 0.03;
+alpha2 = 0.03; % seems best
 alpha3 = 0.1;
 alpha4 = 0.3;
 
-num_iters = 200;
+num_iters = 400;
 
 % Init Theta and Run Gradient Descent 
+
+%%% feature (X) is normalized
 theta = zeros(3, 1);
-[theta0, J_history0] = gradientDescentMulti(X, y, theta, alpha0, num_iters);
-[theta1, J_history1] = gradientDescentMulti(X, y, theta, alpha1, num_iters);
-[theta2, J_history2] = gradientDescentMulti(X, y, theta, alpha2, num_iters);
-[theta3, J_history3] = gradientDescentMulti(X, y, theta, alpha3, num_iters);
-[theta4, J_history4] = gradientDescentMulti(X, y, theta, alpha4, num_iters);
+[theta0, J_history0] = gradientDescentMulti(Xnorm, y, theta, alpha0, num_iters);
+[theta1, J_history1] = gradientDescentMulti(Xnorm, y, theta, alpha1, num_iters);
+[theta2, J_history2] = gradientDescentMulti(Xnorm, y, theta, alpha2, num_iters);
+[theta3, J_history3] = gradientDescentMulti(Xnorm, y, theta, alpha3, num_iters);
+[theta4, J_history4] = gradientDescentMulti(Xnorm, y, theta, alpha4, num_iters);
 
 % Plot the convergence graph
 figure;
@@ -120,10 +122,11 @@ plot(1:numel(J_history3), J_history3, '-c', 'LineWidth', 2);
 
 plot(1:numel(J_history4), J_history4, '-k', 'LineWidth', 2);
 
+theta = theta4; %%% or theta2 if num_iters is high enough
 % Display gradient descent's result
-%fprintf('Theta computed from gradient descent: \n');
-%fprintf(' %f \n', theta);
-%fprintf('\n');
+fprintf('Theta computed from gradient descent: \n');
+fprintf(' %f \n', theta);
+fprintf('\n'); % space
 
 % Estimate the price of a 1650 sq-ft, 3 br house
 % ====================== YOUR CODE HERE ======================
@@ -132,7 +135,8 @@ plot(1:numel(J_history4), J_history4, '-k', 'LineWidth', 2);
 
 %[X, mu, sigma] = featureNormalize(X(:,2:3));
 
-price = 0; % You should change this
+XnormPred = [1, ([1650, 3] - mu)./sigma];
+price = XnormPred * theta; % You should change this
 
 
 % ============================================================
@@ -158,6 +162,9 @@ fprintf('Solving with normal equations...\n');
 %
 
 %% Load Data
+
+%%% reasign X as it originally is: normal equations does not require any
+%%% feature scaling
 data = csvread('ex1data2.txt');
 X = data(:, 1:2);
 y = data(:, 3);
@@ -177,7 +184,7 @@ fprintf('\n');
 
 % Estimate the price of a 1650 sq-ft, 3 br house
 % ====================== YOUR CODE HERE ======================
-price = 0; % You should change this
+price = [1, 1650, 3] * theta; % You should change this
 
 
 % ============================================================
