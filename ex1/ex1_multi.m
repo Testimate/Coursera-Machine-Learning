@@ -42,7 +42,7 @@ m = length(y);
 %%% Testimate:
 %%% By looking at the values, note that house sizes are about 1000 times
 %%% the number of bedrooms. When features differ by orders of magnitude,
-%%% forst performing feature scaling can make gradient descent converge
+%%% first performing feature scaling can make gradient descent converge
 %%% much more quickly
 
 % Print out some data points

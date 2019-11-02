@@ -47,9 +47,11 @@ end
 
 function out = output(partId)
   % Random Test Cases
-  X1 = [ones(20,1) (exp(1) + exp(2) * (0.1:0.1:2))'];
+  X1 = [ones(20,1) (exp(1) + exp(2) * (0.1:0.1:2))']; %%% 2 columns with intecept already built-in
   Y1 = X1(:,2) + sin(X1(:,1)) + cos(X1(:,2));
-  X2 = [X1 X1(:,2).^0.5 X1(:,2).^0.25];
+  X2 = [X1 X1(:,2).^0.5 X1(:,2).^0.25];  %%% 4 columns
+
+  
   Y2 = Y1.^0.5 + Y1;
   if partId == '1'
     out = sprintf('%0.5f ', warmUpExercise());
@@ -62,7 +64,7 @@ function out = output(partId)
   elseif partId == '5'
     out = sprintf('%0.5f ', computeCostMulti(X2, Y2, [0.1 0.2 0.3 0.4]'));
   elseif partId == '6'
-    out = sprintf('%0.5f ', gradientDescentMulti(X2, Y2, [-0.1 -0.2 -0.3 -0.4]', 0.01, 10));
+    out = sprintf('%0.5f ', gradientDescentMulti(X2, Y2, [-0.1 -0.2 -0.3 -0.4]', 0.01, 10)); %%% -0.1 is beta_0 for intercept)
   elseif partId == '7'
     out = sprintf('%0.5f ', normalEqn(X2, Y2));
   end 

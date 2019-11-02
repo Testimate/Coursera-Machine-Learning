@@ -15,8 +15,11 @@ J = 0;
 %               You should set J to the cost.
 
 
-J = 1/(2*m) * sum((X * theta - y).^2)
-% Testimate: In the Stanford CS229, it's 1/2 instead of 1/(2m), pending to confirm the reason.
+
+
+J = 1/(2*m) * sum((X * theta - y).^2);
+% Testimate: In the Stanford CS229, it's 1/2 instead of 1/(2m). 
+% Yet to confirm if there is a deeper reason for this difference.
 
 % =========================================================================
 

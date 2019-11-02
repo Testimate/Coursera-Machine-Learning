@@ -27,7 +27,9 @@
 
 %% Initialization
 clear ; close all; clc
-% Testimate: This clears your workspace, closes all figures, and clears command window. clr is a quick way to "reset" Matlab
+% Testimate: This clears your workspace, closes all figures, and clears command window. 
+% clr is a quick way to "reset" Matlab
+
 
 %% ==================== Part 1: Basic Function ====================
 % Complete warmUpExercise.m
@@ -58,7 +60,6 @@ pause;
 
 X = [ones(m, 1), data(:,1)]; % Add a column of ones to x
 theta = zeros(2, 1); % initialize fitting parameters
-% Testimate: theta has to be 2 by 1: X is m by 2
 
 % Some gradient descent settings
 iterations = 1500;
@@ -73,12 +74,16 @@ fprintf('Expected cost value (approx) 32.07\n');
 
 % further testing of the cost function
 J = computeCost(X, y, [-1 ; 2]);
+
 fprintf('\nWith theta = [-1 ; 2]\nCost computed = %f\n', J);
 fprintf('Expected cost value (approx) 54.24\n');
 
 fprintf('Program paused. Press enter to continue.\n');
 pause;
+% Testimate: 2.2.3 ends
 
+
+% Testimate: 2.2.4 starts
 fprintf('\nRunning Gradient Descent ...\n')
 
 % run gradient descent
@@ -139,5 +144,5 @@ figure;
 % Plot J_vals as 15 contours spaced logarithmically between 0.01 and 100
 contour(theta0_vals, theta1_vals, J_vals, logspace(-2, 3, 20))
 xlabel('\theta_0'); ylabel('\theta_1');
-hold on;
+hold on; % Testimate: add the final solution of theta (-3.63,1.17)
 plot(theta(1), theta(2), 'rx', 'MarkerSize', 10, 'LineWidth', 2);
