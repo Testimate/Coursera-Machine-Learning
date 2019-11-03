@@ -16,12 +16,11 @@ p = zeros(m, 1);
 %
 
 hTheta = sigmoid(theta' * X');
-admittedIndex = find(hTheta >= 0.5);
-p(admittedIndex) = 1;
+% admittedIndex = find(hTheta >= 0.5);  
+% p(admittedIndex) = 1;
 
-
-
-
+%% intermidiate admittedIndex and find are redundent
+p((hTheta >= 0.5)) = 1;
 
 
 

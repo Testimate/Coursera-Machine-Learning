@@ -18,21 +18,26 @@ grad = zeros(size(theta));
 %               derivatives of the cost w.r.t. each parameter in theta
 %
 % Note: grad should have the same dimensions as theta
-%
 
-%hTheta = sigmoid(theta' * X'); %%% hTheta: 1*m. theta: 3*1 (add intercept)
-%J = -1/m * (log(hTheta) * y + log(1-hTheta) * (1-y));
-%grad(1) = 1/m * (hTheta - y') * X(:,1); % 1*m * m*1
-%grad(2) = 1/m * (hTheta - y') * X(:,2);
-%grad(3) = 1/m * (hTheta - y') * X(:,3);
 
-%%% same as:
+% hTheta = sigmoid(X * theta); %%% hTheta: m*1. theta: p*1 
 
-hTheta = sigmoid(X * theta); %%% hTheta: m*1. theta: 3*1 (add intercept)
-J = -1/m * (y' * log(hTheta) + (1-y)' * log(1-hTheta) );
-grad(1) = 1/m * X(:,1)' * (hTheta - y); % 1*m * m*1
-grad(2) = 1/m * X(:,2)' * (hTheta - y);
-grad(3) = 1/m * X(:,3)' * (hTheta - y);
+% J = -1/m * (y' * log(hTheta) + (1-y)' * log(1-hTheta) ); %%% SIGMA of a multiplication: vectorize
+% grad(1) = 1/m * X(:,1)' * (hTheta - y); % 1*m * m*1
+% grad(2) = 1/m * X(:,2)' * (hTheta - y);
+% grad(3) = 1/m * X(:,3)' * (hTheta - y);
+%%% vectorization expression,  see reading: Simplified Cost Function and Gradient Descent
+
+%% The above code, though is correct, has problem with general p other than 3.
+
+
+%% Nov. 2nd 2019
+
+hTheta = sigmoid(X * theta); %%% hTheta: m*1. theta: p*1 
+
+J = -1/m * (y' * log(hTheta) + (1-y)' * log(1-hTheta) ); 
+ 
+grad = 1/m * X' * (hTheta - y); %%% p * m * m * 1 
 
 
 % =============================================================

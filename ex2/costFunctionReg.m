@@ -21,11 +21,13 @@ grad = zeros(size(theta));
 hTheta = sigmoid(theta' * X');
 n = length(theta);
 J = -1/m * (log(hTheta) * y + log(1-hTheta) * (1-y)) + lambda/(2*m)* theta(2:n)'*theta(2:n);
+
+%% Do not regularize \theta_0
 grad(1) = 1/m * (hTheta - y') * X(:,1);
+
 
 for k = 2 : n
     grad(k) = 1/m * (hTheta - y') * X(:,k) + lambda/m * theta(k);
-    k = k + 1;
 end
 
 
