@@ -106,7 +106,7 @@ pause;
 % Initialize fitting parameters
 initial_theta = zeros(size(X, 2), 1);
 
-% Set regularization parameter lambda to 1 (you should vary this)
+% Set regularization parameter lambda to 1 (you should vary this)!!!!!
 lambda = 1;
 
 % Set Options
@@ -132,5 +132,5 @@ hold off;
 p = predict(theta, X);
 
 fprintf('Train Accuracy: %f\n', mean(double(p == y)) * 100);
-fprintf('Expected accuracy (with lambda = 1): 83.1 (approx)\n');
+fprintf('Expected accuracy (with lambda = 1): 83.1 (approx)\n'); %% this is just for lambda = 1
 

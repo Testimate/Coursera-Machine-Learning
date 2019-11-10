@@ -37,7 +37,7 @@ hTheta = sigmoid(X * theta); %%% hTheta: m*1. theta: p*1
 
 J = -1/m * (y' * log(hTheta) + (1-y)' * log(1-hTheta) ); 
  
-grad = 1/m * X' * (hTheta - y); %%% p * m * m * 1 
+grad = 1/m * X' * (hTheta - y); %%%  a well vectorized solution, which is suggested in Lab 3!
 
 
 % =============================================================
