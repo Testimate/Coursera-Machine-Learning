@@ -5,7 +5,7 @@ function [X_norm, mu, sigma] = featureNormalize(X)
 %   is 1. This is often a good preprocessing step to do when
 %   working with learning algorithms.
 
-mu = mean(X);
+mu = mean(X); %%% default by column
 X_norm = bsxfun(@minus, X, mu);
 
 sigma = std(X_norm);

@@ -45,11 +45,11 @@ pause;
 %
 fprintf('\nRunning PCA on example dataset.\n\n');
 
-%  Before running PCA, it is important to first normalize X
+%%  Before running PCA, it is important to first normalize X
 [X_norm, mu, sigma] = featureNormalize(X);
 
 %  Run PCA
-[U, S] = pca(X_norm);
+[U, S] = pca(X_norm); %% already normalized
 
 %  Compute mu, the mean of the each feature
 

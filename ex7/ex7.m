@@ -96,6 +96,12 @@ fprintf('\nK-Means Done.\n\n');
 fprintf('Program paused. Press enter to continue.\n');
 pause;
 
+
+
+
+
+
+
 %% ============= Part 4: K-Means Clustering on Pixels ===============
 %  In this exercise, you will use K-Means to compress an image. To do this,
 %  you will first run K-Means on the colors of the pixels in the image and
@@ -107,10 +113,28 @@ pause;
 fprintf('\nRunning K-Means clustering on pixels from an image.\n\n');
 
 %  Load an image of a bird
-A = double(imread('bird_small.png'));
+%% A = double(imread('bird_small.png'));  
+% right-click this bird image, 
+% 33 KB, dimension: 128 * 128
+
+%% Try my pic
+%% A = double(imread('me.png')); 
+% much larger pic: 
+% 624KB, 2448 * 3264
+% start iteration: 16:33
+% 2-3 minutes for one iteration for K = 16, max_iters = 10
+
+%% A = double(imread('lingtao.png')); 
+
+
+%% ===================================== %%
+
+KmeanImageName = 'ZhouDuSheng1.png';
+A = double(imread(KmeanImageName)); 
 
 % If imread does not work for you, you can try instead
 %   load ('bird_small.mat');
+
 
 A = A / 255; % Divide by 255 so that all values are in the range 0 - 1
 
@@ -122,10 +146,19 @@ img_size = size(A);
 % This gives us our dataset matrix X that we will use K-Means on.
 X = reshape(A, img_size(1) * img_size(2), 3);
 
+
+
+%% ===================================== %%
+
 % Run your K-Means algorithm on this data
 %% You should try different values of K and max_iters here
 K = 16; 
 max_iters = 10;
+
+
+%% ===================================== %%
+
+
 
 % When using K-Means, it is important the initialize the centroids
 % randomly. 
@@ -145,6 +178,7 @@ pause;
 %  each example. After that, we 
 
 fprintf('\nApplying K-Means to compress an image.\n\n');
+%% for large image, takes time after displaying this message
 
 % Find closest cluster members
 idx = findClosestCentroids(X, centroids);
@@ -152,12 +186,21 @@ idx = findClosestCentroids(X, centroids);
 % Essentially, now we have represented the image X as in terms of the
 % indices in idx. 
 
+
 % We can now recover the image from the indices (idx) by mapping each pixel
 % (specified by its index in idx) to the centroid value
 X_recovered = centroids(idx,:);
+%% THE most key & genius execution!!
+%% again, matrix index by a larger vector!!!! like ymatrix
+%%% dim X_recovered: row(idx)=row(X) , column(centroid) = 3
 
 % Reshape the recovered image into proper dimensions
 X_recovered = reshape(X_recovered, img_size(1), img_size(2), 3);
+
+
+
+
+%% original, side by side Original and compressed
 
 % Display the original image 
 subplot(1, 2, 1);
@@ -167,9 +210,23 @@ title('Original');
 % Display compressed image side by side
 subplot(1, 2, 2);
 imagesc(X_recovered)
-title(sprintf('Compressed, with %d colors.', K));
+title(sprintf('Compressed, with %d colors and %d iterations.', K, max_iters));
 
 
+%% Just output the compressed
+%%% image(X_recovered)
+
+%saveas(gcf,'filename.png')
+
+
+
+%% why still need these at the end?
 fprintf('Program paused. Press enter to continue.\n');
 pause;
+
+
+%% Add automatic save!
+
+%str = sprintf(KmeanImageName);
+%savefig(str,'-fig')
 
